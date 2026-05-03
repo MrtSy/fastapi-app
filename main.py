@@ -31,7 +31,7 @@ def aktif_kullanici(token: str = Depends(oauth2_scheme), db: Session = Depends(d
 
 @app.get("/")
 def ana_sayfa():
-    return {"mesaj": "Merhaba FastAPI!"}
+	return {"mesaj": "Merhaba FastAPI! CI/CD çalışıyor!"}
 
 @app.post("/kayit")
 def kayit(kullanici: KullaniciSchema, db: Session = Depends(database.get_db)):
