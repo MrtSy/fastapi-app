@@ -90,5 +90,5 @@ def todo_guncelle(id: int, todo: TodoSchema, db: Session = Depends(database.get_
     db.refresh(mevcut)
     return {"guncellendi": mevcut}
 @app.get("/hakkinda")
-def hakkinda()
+def hakkinda():
 	return {"proje": "Todo API", "gelistirici": "Mert"}
