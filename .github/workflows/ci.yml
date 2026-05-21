@@ -1,4 +1,4 @@
-name: CI/CD
+name: CI
 
 on:
   push:
@@ -15,19 +15,3 @@ jobs:
 
       - name: Docker image build et
         run: docker build -t fastapi-app .
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - name: Kodu çek
-        uses: actions/checkout@v4
-
-      - name: Railway CLI kur
-        run: npm install -g @railway/cli
-
-      - name: Deploy et
-        run: railway up --detach
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
