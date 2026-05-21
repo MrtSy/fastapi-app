@@ -9,10 +9,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Kodu çek
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Docker image build et
         run: docker build -t fastapi-app .
@@ -21,13 +20,14 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-
     steps:
       - name: Kodu çek
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Railway'e deploy et
-        uses: bervProject/railway-deploy@main
-        with:
-          railway_token: ${{ secrets.RAILWAY_TOKEN }}
-          service: web
+      - name: Railway CLI kur
+        run: npm install -g @railway/cli
+
+      - name: Deploy et
+        run: railway up --detach
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
