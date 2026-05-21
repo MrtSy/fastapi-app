@@ -1,4 +1,4 @@
-name: CI
+name: CI/CD
 
 on:
   push:
@@ -16,3 +16,18 @@ jobs:
 
       - name: Docker image build et
         run: docker build -t fastapi-app .
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Kodu çek
+        uses: actions/checkout@v3
+
+      - name: Railway'e deploy et
+        uses: bervProject/railway-deploy@main
+        with:
+          railway_token: ${{ secrets.RAILWAY_TOKEN }}
+          service: web
